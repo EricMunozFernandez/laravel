@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('contenido')
+    <a href="/crearBodega">Añadir Bodega</a>
     <table>
         <tr>
             <th>Nombre</th>

@@ -82,8 +82,16 @@ class BodegaController extends Controller
      * @param  \App\Bodega  $bodega
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bodega $bodega)
+    public function destroy(int $id)
     {
-        //
+
+        $bodega = Bodega::find($id);
+        $vinosLista=$bodega->vinos;
+        foreach ($vinosLista as $vino){
+            $vino->delete();
+        }
+        $bodega->delete();
+        $bodegasLista= Bodega::all();
+        return view('bodegas',['bodegas'=>$bodegasLista,]);
     }
 }

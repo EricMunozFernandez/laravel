@@ -40,7 +40,7 @@
     </div>
     <div>
         <h2>Vinos Disponibles</h2>
-        <a href="/bodega/{{$bodega->id}}/añadirVino">Añadir Vino</a>
+        <a href="/bodega/{{$bodega->id}}/createVino">Añadir Vino</a>
         <table>
             <tr>
                 <th>Nombre</th>

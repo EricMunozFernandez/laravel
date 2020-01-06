@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bodega;
 use App\Vino;
 use Illuminate\Http\Request;
 
@@ -22,9 +23,13 @@ class VinoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $id)
     {
-        //
+        return view('vinoIndividual',[
+            'bodega_id'=>$id,
+            'titulo'=>'Nuevo Vino',
+            'tiposVinos'=>array('tinto','blanco','rosado','espumoso','dulce')
+        ]);
     }
 
     /**
@@ -35,7 +40,20 @@ class VinoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vino= new Vino();
+
+        $vino->nombre=request('nombre');
+        $vino->descripcion=request('descripcion');
+        $vino->anno=request('anno');
+        $vino->alcohol=request('alcohol');
+        $vino->tipo=request('tipo');
+        $vino->bodega_id=request('bodega_id');
+
+        $vino->save();
+        $bodega=Bodega::find($vino->bodega_id);
+        $vinosLista=$bodega->vinos;
+        return view('bodegaIndividual',['bodega'=>$bodega,'vinos'=>$vinosLista]);
+
     }
 
     /**
@@ -47,7 +65,11 @@ class VinoController extends Controller
     public function show(int $id)
     {
         $vino=Vino::find($id);
-        return view('vinoIndividual',['vino'=>$vino,'titulo'=>'Detalle Vino']);
+        return view('vinoIndividual',[
+            'vino'=>$vino,
+            'titulo'=>'Detalle Vino',
+            'tiposVinos'=>array('tinto','blanco','rosado','espumoso','dulce')
+        ]);
     }
 
     /**
@@ -59,7 +81,11 @@ class VinoController extends Controller
     public function edit(int $id)
     {
         $vino=Vino::find($id);
-        return view('vinoIndividual',['vino'=>$vino,'titulo'=>'Detalle Vino']);
+        return view('vinoIndividual',[
+            'vino'=>$vino,
+            'titulo'=>'Editar Vino',
+            'tiposVinos'=>array('tinto','blanco','rosado','espumoso','dulce')
+        ]);
     }
 
     /**
@@ -69,9 +95,22 @@ class VinoController extends Controller
      * @param  \App\Vino  $vino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vino $vino)
+    public function update(Request $request, int $id)
     {
-        //
+        $vino=Vino::find($id);
+        $vino->nombre=request('nombre');
+        $vino->descripcion=request('descripcion');
+        $vino->anno=request('anno');
+        $vino->alcohol=request('alcohol');
+        $vino->tipo=request('tipo');
+        $vino->bodega_id=request('bodega_id');
+
+        $vino->save();
+        return view('vinoIndividual',[
+            'vino'=>$vino,
+            'titulo'=>'Detalle Vino',
+            'tiposVinos'=>array('tinto','blanco','rosado','espumoso','dulce')
+        ]);
     }
 
     /**
@@ -80,8 +119,17 @@ class VinoController extends Controller
      * @param  \App\Vino  $vino
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vino $vino)
+    public function destroy(int $id)
     {
-        //
+        $vino = Vino::find($id);
+
+        $vino->delete();
+        $bodega=Bodega::find($vino->bodega_id);
+        $vinosLista=$bodega->vinos;
+        return view('bodegaIndividual',[
+            'bodega'=>$bodega,
+            'vinos'=>$vinosLista
+        ]);
+
     }
 }
