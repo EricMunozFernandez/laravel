@@ -44,9 +44,10 @@ class VinoController extends Controller
      * @param  \App\Vino  $vino
      * @return \Illuminate\Http\Response
      */
-    public function show(Vino $vino)
+    public function show(int $id)
     {
-        //
+        $vino=Vino::find($id);
+        return view('vinoIndividual',['vino'=>$vino,'titulo'=>'Detalle Vino']);
     }
 
     /**
@@ -55,9 +56,10 @@ class VinoController extends Controller
      * @param  \App\Vino  $vino
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vino $vino)
+    public function edit(int $id)
     {
-        //
+        $vino=Vino::find($id);
+        return view('vinoIndividual',['vino'=>$vino,'titulo'=>'Detalle Vino']);
     }
 
     /**

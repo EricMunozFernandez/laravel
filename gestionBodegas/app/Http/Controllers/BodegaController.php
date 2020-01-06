@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bodega;
+use App\Vino;
 use Illuminate\Http\Request;
 
 class BodegaController extends Controller
@@ -42,12 +43,14 @@ class BodegaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bodega  $bodega
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Bodega $bodega)
+    public function show(int $id)
     {
-        //
+        $bodega=Bodega::find($id);
+        $vinosLista=$bodega->vinos;
+        return view('bodegaIndividual',['bodega'=>$bodega,'vinos'=>$vinosLista]);
     }
 
     /**

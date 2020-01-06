@@ -1,4 +1,4 @@
-@extends('layout)
+@extends('layout')
 
 @section('contenido')
     <table>
@@ -15,7 +15,7 @@
             <td>{{$bodega->direccion}}</td>
             <td>{{$bodega->telefono}}</td>
             <td>{{$bodega->email}}</td>
-            <td>botones</td>
+            <td><a href="/bodega/{{$bodega->id}}">Entrar</a><a href="/borrarBodega/{{$bodega->id}}">Borrar</a></td>
         </tr>
         @endforeach
     </table>

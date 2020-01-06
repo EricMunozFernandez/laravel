@@ -19,6 +19,7 @@ class CreateVinosTable extends Migration
             $table->string('nombre');
             $table->text('descripcion');
             $table->integer('anno');
+            $table->float('alcohol');
             $table->string('tipo');
             $table->unsignedBigInteger('bodega_id');
         });

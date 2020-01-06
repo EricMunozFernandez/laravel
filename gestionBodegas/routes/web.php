@@ -12,3 +12,10 @@
 */
 
 Route::get('/','BodegaController@index');
+
+Route::get('/bodega/{id}','BodegaController@show');
+
+Route::get('/vino/{id}','VinoController@show');
+
+Route::get('/editarVino/{id}','VinoController@edit');
+
