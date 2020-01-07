@@ -11,25 +11,31 @@
 |
 */
 
-Route::get('/','BodegaController@index');
+Route::get('/', 'BodegaController@index');
 
-Route::get('/bodega/{id}','BodegaController@show');
+Route::get('/bodega/{id}', 'BodegaController@show');
 
-Route::get('/craearBodega','BodegaController@create');
+Route::get('/crearBodega', 'BodegaController@create');
 
-Route::get('/borrarBodega/{id}','BodegaController@destroy');
+Route::post('/storeBodega', 'BodegaController@store');
 
-Route::get('/vino/{id}','VinoController@show');
+Route::get('/editarBodega/{id}', 'BodegaController@edit');
 
-Route::get('/bodega/{id}/createVino','VinoController@create');
+Route::post('/updateBodega/{id}', 'BodegaController@update');
 
-Route::post('/storeVino','VinoController@store');
+Route::get('/borrarBodega/{id}', 'BodegaController@destroy');
 
-Route::get('/editarVino/{id}','VinoController@edit');
+Route::get('/vino/{id}', 'VinoController@show');
 
-Route::post('/updateVino/{id}','VinoController@update');
+Route::get('/bodega/{id}/createVino', 'VinoController@create');
 
-Route::get('/borrarVino/{id}','VinoController@destroy');
+Route::post('/storeVino', 'VinoController@store');
+
+Route::get('/editarVino/{id}', 'VinoController@edit');
+
+Route::post('/updateVino/{id}', 'VinoController@update');
+
+Route::get('/borrarVino/{id}', 'VinoController@destroy');
 
 
 
