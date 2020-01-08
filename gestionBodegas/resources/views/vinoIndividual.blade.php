@@ -7,13 +7,17 @@
             <div >
                 <a href="/" class="btn btn-outline-primary">Volver</a>
                 @if($titulo!='Nuevo Vino')
-                    <a href="/editarVino/{{$vino->id}}" class="btn btn-outline-warning">Editar</a>
-                    <a href="/borrarVino/{{$vino->id}}" class="btn btn-outline-danger">Borrar</a>
+                    <a href="{{route('vino.edit',['bodega_id'=>$bodega_id,'vino_id'=>$vino->id])}}" class="btn btn-outline-warning">Editar</a>
+                    <form method="POST" action="{{route('vino.destroy',['bodega_id'=>$bodega_id,'vino_id'=>$vino->id])}}">
+                        @csrf
+                        @method("DELETE")
+                        <input type="submit" class="btn btn-outline-danger" value="Eliminar">
+                    </form>
             </div>
         </div>
-        <form method="post" action="/updateVino/{{$vino->id}}">
+        <form method="post" action="{{route('vino.update',['bodega_id'=>$bodega_id,'vino_id'=>$vino->id])}}">
             @else
-                <form method="post" action="/storeVino">
+                <form method="post" action="{{route('vino.store',$bodega_id)}}">
                     @endif
                     @csrf
                     <div class="form-group">

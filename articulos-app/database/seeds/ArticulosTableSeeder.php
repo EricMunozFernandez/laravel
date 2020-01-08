@@ -19,7 +19,6 @@ class ArticulosTableSeeder extends Seeder
                 'titulo'=>$faker->name,
                 'subtitulo'=>$faker->realText(50,2),
                 'cuerpo'=>$faker->realText(100,2),
-                'user_id'=>$faker->randomDigit(0-9),
             ]);
         }
     }

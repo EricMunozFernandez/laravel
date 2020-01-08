@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UsuariosTableSeeder extends Seeder
+class ComentariosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,13 +11,12 @@ class UsuariosTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         $faker =Faker\Factory::create();
 
-        for($i=0;$i<10;$i++){
-            DB::table('usuarios')->insert([
-                'email'=>$faker->email,
-                'descripcion'=>$faker->realText(100,2),
+        for($i=0;$i<50;$i++){
+            DB::table('comentarios')->insert([
+                'descripcion'=>$faker->text,
+                'articulo_id'=>$faker->randomDigit(0-9),
             ]);
         }
     }

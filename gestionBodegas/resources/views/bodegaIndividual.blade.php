@@ -6,12 +6,16 @@
             <div class="d-flex align-items-center justify-content-between">
                 <h2>{{$titulo}}</h2>
                 <div>
-                    <a href="/editarBodega/{{$bodega->id}}" class="btn btn-outline-warning">Editar</a>
-                    <a href="/" class="btn btn-outline-primary">Volver</a>
-                    <a href="/borrarBodega/{{$bodega->id}}" class="btn btn-outline-danger">Eliminar</a>
+                    <a href="{{route('bodegas.edit',$bodega->id)}}" class="btn btn-outline-warning">Editar</a>
+                    <a href="{{route('bodegas.index')}}" class="btn btn-outline-primary">Volver</a>
+                    <form method="POST" action="{{route('bodegas.destroy',$bodega->id)}}">
+                        @csrf
+                        @method("DELETE")
+                        <input type="submit" class="btn btn-outline-danger" value="Eliminar">
+                    </form>
                 </div>
             </div>
-            <form method="post" action="/updateBodega/{{$bodega->id}}">
+            <form method="post" action="{{route('bodegas.update',$bodega->id)}}">
                 @csrf
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -64,10 +68,10 @@
                 <div class="form-group">
                     <label for="personaContacto">Año de fundacion</label>
                     @if($titulo=='Editar Bodega')
-                        <input type="text" id="personaContacto" class="form-control" name="annoFundacion"
+                        <input type="text" id="annoFundacion" class="form-control" name="annoFundacion"
                                value="{{$bodega->annoFundacion}}">
                     @else
-                        <input type="text" id="personaContacto" class="form-control" name="annoFundacion" disabled
+                        <input type="text" id="annoFundacion" class="form-control" name="annoFundacion" disabled
                                value="{{$bodega->annoFundacion}}">
                     @endif
                 </div>
@@ -117,7 +121,7 @@
         <div class="col-6">
             <div class="d-flex align-items-center justify-content-between">
                 <h2>Vinos Disponibles</h2>
-                <a href="/bodega/{{$bodega->id}}/createVino" class="btn btn-outline-primary">Añadir Vino</a>
+                <a href="{{route('vinos.create',$bodega->id)}}" class="btn btn-outline-primary">Añadir Vino</a>
             </div>
             <table class="table table-bordered">
                 <tr>
@@ -130,8 +134,13 @@
                         <td>{{$vino->nombre}}</td>
                         <td>{{$vino->tipo}}</td>
                         <td class="d-flex">
-                            <a href="/vino/{{$vino->id}}" class="btn btn-outline-primary">Ver</a>
-                            <a href="/borrarVino/{{$vino->id}}" class="btn btn-outline-danger">Borrar</a>
+                            <a href="{{route('vinos.show',['bodega_id'=>$bodega->id,'vino_id'=>$vino->id])}}"
+                               class="btn btn-outline-primary">Ver</a>
+                            <form method="POST" action="{{route('vinos.destroy',['bodega_id'=>$bodega->id,'vino_id'=>$vino->id])}}">
+                                @csrf
+                                @method("DELETE")
+                                <input type="submit" class="btn btn-outline-danger" value="Eliminar">
+                            </form>
                         </td>
                     </tr>
                 @endforeach

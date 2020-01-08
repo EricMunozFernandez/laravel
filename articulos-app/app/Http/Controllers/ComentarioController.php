@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Articulo;
+use App\Comentario;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class ComentarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,16 +36,22 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comentario= new Comentario();
+        $comentario->descripcion=request('descripcion');
+        $comentario->articulo_id=request('articulo_id');
+
+        $comentario->save();
+        
+        return redirect()->route('article.show',request('articulo_id'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Comentario  $comentario
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comentario $comentario)
     {
         //
     }
@@ -51,10 +59,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Comentario  $comentario
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comentario $comentario)
     {
         //
     }
@@ -63,10 +71,10 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Comentario  $comentario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comentario $comentario)
     {
         //
     }
@@ -74,10 +82,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Comentario  $comentario
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comentario $comentario)
     {
         //
     }

@@ -1,19 +1,27 @@
 @extends('layout')
 
 @section('articulo')
-    <div class="row">
-        <h2 class="w-25">Anuncio {{$articulo->id}}</h2>
-        <a class="w-50" href="/articulos">Volver</a>
-        <ol class="col-6">
-            <div class="list-group" id="list-tab" role="tablist">
-            <li class="list-group-item list-group-item-action">{{$articulo->titulo}}</li>
-            <li class="list-group-item list-group-item-action">{{$articulo->subtitulo}}</li>
-            <li class="list-group-item list-group-item-action">{{$articulo->cuerpo}}</li>
-            <li class="list-group-item list-group-item-action">{{$usuarioArticulo->email}}</li>
-            <li class="list-group-item list-group-item-action">{{$usuarioArticulo->descripcion}}</li>
-            <a class="badge badge-primary" href="/crear">Crear</a>
-            <a class="badge badge-danger" href="/destroy/{{$articulo->id}}">Borrar</a>
+    <div>
+        <div class=" d-flex align-items-center justify-content-between">
+            <h1 class="">Anuncio {{$articulo->id}}</h1>
+            <a class="btn btn-outline-primary" href="{{route('article.index')}}">Volver</a>
+        </div>
+        <h2 class="text-center">{{$articulo->titulo}}</h2>
+        <p class="text-center">{{$articulo->subtitulo}}</p>
+        <p class="">{{$articulo->cuerpo}}</p>
+    </div>
+    <div>
+        <h4>Comentarios</h4>
+        <form method="post" action="{{route('comentario.store',$articulo->id)}}">
+            @csrf
+            <div class="form-group">
+            <textarea class="form-control" name="descripcion" placeholder="insertar comentario"></textarea>
             </div>
-        </ol>
+            <input type="hidden" name="articulo_id" value="{{$articulo->id}}">
+            <input type="submit" class="btn btn-primary" value="Añadir Comentario">
+        </form>
+        @foreach($comentarios as $comentario)
+            <p>{{$comentario->descripcion}}</p>
+            @endforeach
     </div>
 @endsection

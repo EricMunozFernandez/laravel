@@ -12,20 +12,17 @@
 */
 
 Route::get('/', function () {
-    return "egibide";
-});
-
-Route::get('/paciente/{id}',function ($id){
-    $data=request();
-    return $data;
+    return redirect()->route('article.index');
 });
 
 Route::get('/articulos','ArticleController@index')->name('article.index');
 
+Route::get('/articulos/create','ArticleController@create')->name('article.create');
+
+Route::post('/articulos','ArticleController@store')->name('article.store');
+
 Route::get('/articulos/{id}','ArticleController@show')->name('article.show');
 
-Route::get('/crear','ArticleController@create')->name('article.create');
+Route::delete('/articulos/{id}','ArticleController@destroy')->name('article.destroy');
 
-Route::post('/guardar','ArticleController@store')->name('article.store');
-
-Route::get('/destroy/{id}','ArticleController@destroy')->name('article.destroy');
+Route::post('/articulos/{id}/comentario','ComentarioController@store')->name('comentario.store');

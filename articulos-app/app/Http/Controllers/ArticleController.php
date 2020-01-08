@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Articulo;
-use App\Usuario;
+use App\Comentario;
 use Illuminate\Http\Request;
 
 
@@ -20,14 +20,14 @@ class ArticleController extends Controller
     public function show($id)
     {
         $articulo = Articulo::find($id);
-        $usuario = Usuario::find($articulo->user_id);
-        return view('articulo', ["articulo" => $articulo, 'usuarioArticulo' => $usuario]);
+        $listacomentarios = $articulo->comentarios;
+        return view('articulo', ["articulo" => $articulo, 'comentarios' => $listacomentarios]);
     }
 
     public function create()
     {
-        $usuarios = Usuario::all();
-        return view('crearArticulo', ['usuarios' => $usuarios]);
+
+        return view('crearArticulo');
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class ArticleController extends Controller
         $articulo->titulo = request('titulo');
         $articulo->subtitulo = request('subtitulo');
         $articulo->cuerpo = request('cuerpo');
-        $articulo->user_id = request('user_id');
+
         $articulo->save();
 
         return redirect()->route('article.index');
@@ -46,6 +46,11 @@ class ArticleController extends Controller
 
     public function destroy($id)
     {
+        $articulo = Articulo::find($id);
+        $listacomentarios = $articulo->comentarios;
+        foreach ($listacomentarios as $comentario) {
+            Comentario::destroy($comentario->id);
+        }
         Articulo::destroy($id);
 
         return redirect()->route('article.index');

@@ -11,31 +11,35 @@
 |
 */
 
-Route::get('/', 'BodegaController@index');
+Route::get('/',function (){
+    return redirect()->route('bodegas.index');
+});
 
-Route::get('/bodega/{id}', 'BodegaController@show');
+Route::get('/bodegas', 'BodegaController@index')->name('bodegas.index');
 
-Route::get('/crearBodega', 'BodegaController@create');
+Route::get('/bodegas/create', 'BodegaController@create')->name('bodegas.create');
 
-Route::post('/storeBodega', 'BodegaController@store');
+Route::post('/bodegas', 'BodegaController@store')->name('bodegas.store');
 
-Route::get('/editarBodega/{id}', 'BodegaController@edit');
+Route::get('/bodegas/{id}', 'BodegaController@show')->name('bodegas.show');
 
-Route::post('/updateBodega/{id}', 'BodegaController@update');
+Route::get('/bodegas/{id}/edit', 'BodegaController@edit')->name('bodegas.edit');
 
-Route::get('/borrarBodega/{id}', 'BodegaController@destroy');
+Route::post('/bodegas/{id}', 'BodegaController@update')->name('bodegas.update');
 
-Route::get('/vino/{id}', 'VinoController@show');
+Route::delete('/bodegas/{id}', 'BodegaController@destroy')->name('bodegas.destroy');
 
-Route::get('/bodega/{id}/createVino', 'VinoController@create');
+Route::get('/bodegas/{id}/vinos', 'VinoController@create')->name('vinos.create');
 
-Route::post('/storeVino', 'VinoController@store');
+Route::post('/bodegas/{bodega_id}/vinos', 'VinoController@store')->name('vinos.store');
 
-Route::get('/editarVino/{id}', 'VinoController@edit');
+Route::get('/bodegas/{bodega_id}/vinos/{vino_id}/edit', 'VinoController@edit')->name('vinos.edit');
 
-Route::post('/updateVino/{id}', 'VinoController@update');
+Route::post('/bodegas/{bodega_id}/vinos/{vino_id}', 'VinoController@update')->name('vinos.update');
 
-Route::get('/borrarVino/{id}', 'VinoController@destroy');
+Route::get('/bodegas/{bodega_id}/vinos/{vino_id}', 'VinoController@show')->name('vinos.show');
+
+Route::delete('/bodegas/{bodega_id}/vinos/{vino_id}', 'VinoController@destroy')->name('vinos.destroy');
 
 
 

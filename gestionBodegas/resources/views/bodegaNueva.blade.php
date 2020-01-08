@@ -3,10 +3,10 @@
 @section('contenido')
     <div class="d-flex justify-content-between">
         <h3>Nueva Bodega</h3>
-        <a href="/" class="btn btn-info">Volver</a>
+        <a href="{{route('bodegas.index')}}" class="btn btn-info">Volver</a>
     </div>
     <hr>
-    <form method="post" action="/storeBodega">
+    <form method="post" action="{{route('bodegas.store')}}">
         @csrf
         <div class="form-group">
             <label for="nombre">Nombre</label>

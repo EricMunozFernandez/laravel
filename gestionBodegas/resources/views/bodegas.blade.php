@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-    <a href="/crearBodega" class="btn btn-primary">Añadir Bodega</a>
+    <a href="{{route('bodegas.create')}}" class="btn btn-primary">Añadir Bodega</a>
     <table class="table table-bordered mt-2">
         <tr>
             <th scope="col">Nombre</th>
@@ -17,8 +17,12 @@
                 <td>{{$bodega->telefono}}</td>
                 <td>{{$bodega->email}}</td>
                 <td class="d-flex">
-                    <a href="/bodega/{{$bodega->id}}" class="btn btn-outline-primary">Entrar</a>
-                    <a href="/borrarBodega/{{$bodega->id}}" class="btn btn-outline-danger">Borrar</a>
+                    <a href="{{route('bodegas.show',$bodega->id)}}" class="btn btn-outline-primary">Entrar</a>
+                    <form method="POST" action="{{route('bodegas.destroy',$bodega->id)}}">
+                        @csrf
+                        @method("DELETE")
+                        <input type="submit" class="btn btn-outline-danger" value="Eliminar">
+                    </form>
                 </td>
             </tr>
         @endforeach

@@ -3,12 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Usuario;
+
 class Articulo extends Model
 {
-    //
-    public function usuario()
+    public function comentarios()
     {
-        return $this->belongsTo('App/Usuario');
+        return $this->hasMany('App\Comentario');
     }
 }
