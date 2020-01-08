@@ -5,7 +5,7 @@
         <div class="col-6">
             <div class="d-flex align-items-center justify-content-between">
                 <h2>{{$titulo}}</h2>
-                <div>
+                <div class="d-flex">
                     <a href="{{route('bodegas.edit',$bodega->id)}}" class="btn btn-outline-warning">Editar</a>
                     <a href="{{route('bodegas.index')}}" class="btn btn-outline-primary">Volver</a>
                     <form method="POST" action="{{route('bodegas.destroy',$bodega->id)}}">
@@ -99,19 +99,19 @@
                     <label>¿Dispone de hotel?</label>
                     @if($titulo=='Editar Bodega')
                         @if($bodega->hotel)
-                            <input type="radio" name="hotel" value="1" checked>Si
-                            <input type="radio" name="hotel" value="0">No
+                            <div><input type="radio" name="hotel" value="1" checked>Si</div>
+                            <div><input type="radio" name="hotel" value="0">No</div>
                         @else
-                            <input type="radio" name="hotel" value="1">Si
-                            <input type="radio" name="hotel" value="0" checked>No
+                            <div><input type="radio" name="hotel" value="1">Si</div>
+                            <div><input type="radio" name="hotel" value="0" checked>No</div>
                         @endif
                     @else
                         @if($bodega->hotel)
-                            <input type="radio" name="hotel" value="1" checked disabled>Si
-                            <input type="radio" name="hotel" value="0" disabled>No
+                            <div><input type="radio" name="hotel" value="1" checked disabled>Si</div>
+                            <div><input type="radio" name="hotel" value="0" disabled>No</div>
                         @else
-                            <input type="radio" name="hotel" value="1" disabled>Si
-                            <input type="radio" name="hotel" value="0" checked disabled>No
+                            <div><input type="radio" name="hotel" value="1" disabled>Si</div>
+                            <div><input type="radio" name="hotel" value="0" checked disabled>No</div>
                         @endif
                     @endif
                 </div>
@@ -136,7 +136,8 @@
                         <td class="d-flex">
                             <a href="{{route('vinos.show',['bodega_id'=>$bodega->id,'vino_id'=>$vino->id])}}"
                                class="btn btn-outline-primary">Ver</a>
-                            <form method="POST" action="{{route('vinos.destroy',['bodega_id'=>$bodega->id,'vino_id'=>$vino->id])}}">
+                            <form method="POST"
+                                  action="{{route('vinos.destroy',['bodega_id'=>$bodega->id,'vino_id'=>$vino->id])}}">
                                 @csrf
                                 @method("DELETE")
                                 <input type="submit" class="btn btn-outline-danger" value="Eliminar">

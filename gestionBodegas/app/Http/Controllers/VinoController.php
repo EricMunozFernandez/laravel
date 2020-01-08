@@ -62,11 +62,12 @@ class VinoController extends Controller
      * @param \App\Vino $vino
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($bodega_id, $vino_id)
     {
-        $vino = Vino::find($id);
+        $vino = Vino::find($vino_id);
         return view('vinoIndividual', [
             'vino' => $vino,
+            'bodega_id'=>$bodega_id,
             'titulo' => 'Detalle Vino',
             'tiposVinos' => array('tinto', 'blanco', 'rosado', 'espumoso', 'dulce')
         ]);
@@ -78,11 +79,12 @@ class VinoController extends Controller
      * @param \App\Vino $vino
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($bodega_id, $vino_id)
     {
-        $vino = Vino::find($id);
+        $vino = Vino::find($vino_id);
         return view('vinoIndividual', [
             'vino' => $vino,
+            'bodega_id'=>$bodega_id,
             'titulo' => 'Editar Vino',
             'tiposVinos' => array('tinto', 'blanco', 'rosado', 'espumoso', 'dulce')
         ]);
@@ -95,9 +97,9 @@ class VinoController extends Controller
      * @param \App\Vino $vino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $bodega_id, $vino_id)
     {
-        $vino = Vino::find($id);
+        $vino = Vino::find($vino_id);
         $vino->nombre = request('nombre');
         $vino->descripcion = request('descripcion');
         $vino->anno = request('anno');
@@ -109,6 +111,7 @@ class VinoController extends Controller
         return view('vinoIndividual', [
             'vino' => $vino,
             'titulo' => 'Detalle Vino',
+            'bodega_id'=>$bodega_id,
             'tiposVinos' => array('tinto', 'blanco', 'rosado', 'espumoso', 'dulce')
         ]);
     }
@@ -119,16 +122,17 @@ class VinoController extends Controller
      * @param \App\Vino $vino
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($bodega_id, $vino_id)
     {
-        $vino = Vino::find($id);
+        $vino = Vino::find($vino_id);
 
         $vino->delete();
-        $bodega = Bodega::find($vino->bodega_id);
+        $bodega = Bodega::find($bodega_id);
         $vinosLista = $bodega->vinos;
         return view('bodegaIndividual', [
             'bodega' => $bodega,
-            'vinos' => $vinosLista
+            'vinos' => $vinosLista,
+            'titulo' => 'Datos Bodega'
         ]);
 
     }
