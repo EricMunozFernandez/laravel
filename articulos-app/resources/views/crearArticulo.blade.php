@@ -1,8 +1,8 @@
-@extends('layout')
+@extends('layouts/app')
 
-@section('articulo')
+@section('content')
     <div class="d-flex align-items-center justify-content-between">
-        <h2>Crear Anuncio</h2>
+        <h2>Crear Articulo</h2>
         <a class="btn btn-outline-primary" href="{{route('article.index')}}">Volver</a>
     </div>
     <form method="post" action="{{route('article.store')}}">

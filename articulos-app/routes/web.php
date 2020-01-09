@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/articulos','ArticleController@index')->name('article.index');
 
-Route::get('/articulos/create','ArticleController@create')->name('article.create');
+Route::get('/articulos/create','ArticleController@create')->name('article.create')->middleware('auth');
 
 Route::post('/articulos','ArticleController@store')->name('article.store');
 
@@ -25,4 +25,8 @@ Route::get('/articulos/{id}','ArticleController@show')->name('article.show');
 
 Route::delete('/articulos/{id}','ArticleController@destroy')->name('article.destroy');
 
-Route::post('/articulos/{id}/comentario','ComentarioController@store')->name('comentario.store');
+Route::post('/articulos/{id}/comentario','ComentarioController@store')->name('comentario.store')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

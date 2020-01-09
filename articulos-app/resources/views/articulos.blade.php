@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('layouts/app')
 
-@section('articulo')
+@section('content')
     <a class="btn btn-primary" href="{{route('article.create')}}">Crear Articulo</a>
     <div class="d-flex flex-wrap mt-2">
         @foreach($articulos as $articulo)
@@ -10,11 +10,13 @@
                     <p class="card-text">{{$articulo->subtitulo}}</p>
                     <div class="d-flex">
                         <a href="{{route('article.show',$articulo->id)}}" class="btn btn-primary">Ver</a>
-                        <form method="POST" action="{{route('article.destroy',$articulo->id)}}">
-                            @csrf
-                            @method("DELETE")
-                            <input type="submit" class="btn btn-danger" value="Borrar">
-                        </form>
+                        @if($logeado)
+                            <form method="POST" action="{{route('article.destroy',$articulo->id)}}">
+                                @csrf
+                                @method("DELETE")
+                                <input type="submit" class="btn btn-danger" value="Borrar">
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

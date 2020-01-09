@@ -49,8 +49,7 @@ class BodegaController extends Controller
 
         $bodega->save();
 
-        $bodegasLista = Bodega::all();
-        return view('bodegas', ['bodegas' => $bodegasLista,]);
+        return redirect()->route('bodegas.index');
     }
 
     /**
